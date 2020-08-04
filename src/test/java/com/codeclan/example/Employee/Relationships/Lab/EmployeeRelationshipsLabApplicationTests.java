@@ -2,7 +2,9 @@ package com.codeclan.example.Employee.Relationships.Lab;
 
 import com.codeclan.example.Employee.Relationships.Lab.models.Department;
 import com.codeclan.example.Employee.Relationships.Lab.models.Employee;
-import org.junit.jupiter.api.Test;
+import com.codeclan.example.Employee.Relationships.Lab.models.Project;
+import com.codeclan.example.Employee.Relationships.Lab.repositories.ProjectRepository;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,8 +22,11 @@ public class EmployeeRelationshipsLabApplicationTests {
 	@Autowired
 	EmployeeRepository employeeRepository;
 
+	@Autowired
+	ProjectRepository projectRepository;
+
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 	}
 
 	@Test
@@ -33,6 +38,21 @@ public class EmployeeRelationshipsLabApplicationTests {
 		employeeRepository.save(employee1);
 	}
 
+
+	@Test
+	public void addEmployeesAndProjects() {
+		Department marketing = new Department("Marketing");
+		departmentRepository.save(marketing);
+
+		Employee employee1 = new Employee("Ben", "Mackinnon", 1234, marketing);
+		employeeRepository.save(employee1);
+
+		Project project1 = new Project("Fuck Floobits", 1);
+		projectRepository.save(project1);
+
+		project1.addEmployee(employee1);
+		projectRepository.save(project1);
+	}
 
 }
 
